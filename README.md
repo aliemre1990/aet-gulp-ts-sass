@@ -1,4 +1,5 @@
-To install npm install aet-gulp-ts-sass
+# Install
+npm install aet-gulp-ts-sass
 
 # Description
 First sory for my bad english.
