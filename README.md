@@ -1,3 +1,5 @@
+To install npm install aet-gulp-ts-sass
+
 # Description
 First sory for my bad english.
 
@@ -300,3 +302,39 @@ A module file may have containing folders name or this name. 'vehicle_edit'-> ed
 
 ## rootModuleFileName
 File name used in root module files.
+
+# Usage
+```
+const ClientController = require('aet-gulp-ts-sass');
+const clientController = new ClientController(path.join(process.cwd(), 'clientConfiguration.js'), clientProdMode);
+
+ app.get('/scripts/:scriptType/:scriptName', (req, res, next) => {
+        let scriptType = req.params.scriptType;
+        let scriptName = req.params.scriptName;
+        let filePath = clientController.getScriptFileOutputPath(scriptType, scriptName);
+
+        if (filePath) {
+            return res.status(200).sendFile(path.join(process.cwd(), filePath), { headers: { 'Content-Type': 'text/javascript' } });
+        } else
+            next();
+    });
+
+app.get('/styles/:styleType/:styleName', (req, res, next) => {
+        let styleType = req.params.styleType;
+        let styleName = req.params.styleName;
+        let filePath = clientController.getStyleFileOutputPath(styleType, styleName);
+
+        if (filePath) {
+            return res.status(200).sendFile(path.join(process.cwd(), filePath), { headers: { 'Content-Type': 'text/css' } });
+        } else
+            next();
+    });
+
+app.get('*', (req, res, next) => {
+        let filePath = clientController.getModuleMarkupFileOutputPath(req.path, true);// remove / at the beginning
+        if (filePath) {
+            return res.status(200).sendFile(filePath);
+        } else
+            next();
+    });
+```
