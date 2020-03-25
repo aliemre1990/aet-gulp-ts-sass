@@ -147,8 +147,7 @@ And here is example configuration object.
         vendorStyles: 'vendorStyles',
         standaloneLibraryStyles: 'standaloneLibraryStyles',
         layoutModuleStyles: 'layoutModuleStyles',
-        moduleStyles: 'moduleStyles',
-        systemJs: 'systemjs'
+        moduleStyles: 'moduleStyles'
     },
     modules: {
         'errors_404': {
