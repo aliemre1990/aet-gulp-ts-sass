@@ -2,13 +2,34 @@
 npm install aet-gulp-ts-sass
 
 # Description
-First sory for my bad english.
+This project is boilerplate for client side typescript projects. Unless you add or remove a file it builds only required files. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Your modules matched with corresponding layout modules by checking their file name. With configuration file you can configure different layouting chain. 
 
-This project is boilerplate for client side typescript projects. Unless you add or remove a file it builds only required files. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. They reside on their folders. And there should only be module files in folders and other module folders. And there is also layout modules that enables to layout your modules. Mathces your modules with corresponding layout modules by checking their file name. With configuration file you can configure different layouting chain. To understand better lets explain client configuration file.
+In this project modules and layout modules exists in this file structure:
+```
+{inputDirectories.modules}
+├── root.html
+├── root.scss
+├── root.ts
+├── moduleA
+│   ├── moduleA.html
+│   ├── moduleA.scss
+│   └── moduleA.ts
+├── moduleB
+│   │── moduleBA
+│   │   ├── moduleBA.html
+│   │   │── moduleBA.scss
+│   │   └── moduleBA.ts
+│   └── moduleBB
+│       ├── moduleBB.html
+│       │── moduleBB.scss
+│       └── moduleBB.ts
+└── ...
+```
+
+
+To understand this project better lets explain client configuration file.
 
 ## Configuration
-
-Lets put an example configuration file and explain over it.
 
 Here is type definition for configuration
 ```
@@ -192,37 +213,16 @@ And here is example configuration object.
 ### Input Directories
 You put your source files in theese directories.
 #### modules
-This directory is where the your modules reside. Entire client project exists as modules. Each module has its own markup, style and script file. Modules file structure is like this:
-
-```
-{inputDirectories.modules}
-├── root.html
-├── root.scss
-├── root.ts
-├── moduleA
-│   ├── moduleA.html
-│   ├── moduleA.scss
-│   └── moduleA.ts
-├── moduleB
-│   │── moduleBA
-│   │   ├── moduleBA.html
-│   │   │── moduleBA.scss
-│   │   └── moduleBA.ts
-│   └── moduleBB
-│       ├── moduleBB.html
-│       │── moduleBB.scss
-│       └── moduleBB.ts
-└── ...
-```
+This directory is where the your modules reside. Entire client project exists as modules. Each module has its own markup, style and script file.
 
 ### layoutModules
-Wher the layout modules reside.
+Where layout modules reside. Layout module file structure is same as modules.
 
 ### libraryScripts
-Your dependency script files that are used by module or layout module script files.
+Your imported script files that are used by module or layout module script files.
 
 ### libraryStyles
-Your dependency style files. that are used by module or layout module style files.
+Your imported style files that are used by module or layout module style files.
 
 ### standaloneStyleLibraries
 Your standalone styles. They will be referenced independently on markup files.
@@ -237,14 +237,14 @@ The paths where your built files will reside.
 Where your built markup files reside.
 
 ### moduleScripts
-Where your module script files reside. 
+Where your built module script files reside. 
 ... And so on...
 
 ## referenceParentPaths
-Paths that will be used in script and style tags. Usually you wont need to change theese properties.
+Paths that will be used in script and style tags. We will use these paths to determine file type. Is referenced script tag module script or layout script. Or vendor script. Usually you wont need to change theese properties.
 
 ## moduleConfiguration
-Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'.
+Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'. Module in the root folder is named with value of 'rootModuleFileName' property. For configuring root module we will use this name as key.
 
 ### module.substitutingModules
 If you want to use one module for multiple module paths use this property. Its good at situations like using same page for adding and editing.
