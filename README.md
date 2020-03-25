@@ -192,7 +192,7 @@ You put your source files in theese directories.
 This directory is where the your modules reside. Entire client project exists as modules. Each module has its own markup, style and script file. Modules file structure is like this:
 
 ```
-modules
+{inputDirectories.modules}
 ├── root.html
 ├── root.scss
 ├── root.ts
@@ -211,3 +211,61 @@ modules
 │       └── moduleBB.ts
 └── ...
 ```
+
+### layoutModules
+Wher the layout modules reside.
+
+### libraryScripts
+Your dependency script files that are used by module or layout module script files.
+
+### libraryStyles
+Your dependency style files. that are used by module or layout module style files.
+
+### standaloneStyleLibraries
+Your standalone styles. They will be referenced independently on markup files.
+
+### markupTemplates
+Where your html markup boilerplate files reside. Theese files are empty html templates. Usually you will have a single file here.
+
+## outputDirectories
+The paths where your built files will reside.
+
+### markupFiles
+Where your built markup files reside.
+
+### moduleScripts
+Where your module script files reside. 
+... And so on...
+
+## referenceParentPaths
+Paths that will be used in script and style tags. Usually you wont need to change theese properties.
+
+## modules
+Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'.
+
+### module.substitutingModules
+If you want to use one module for multiple module paths use this property. Its good at situations like using same page for adding and editing.
+
+### module.layoutModule
+It's used to set layoutModule for module explicitly. By default layout module is determined by matching the module path with layout module path.
+
+### module.markupTemplate
+Used to set modules markup template file explicitly. 
+
+### module.includeStandaloneStyles
+Used to determine which standalone styles will be added to the module.
+
+### module.includeVendorScripts
+If this property set only specified vendor scripts will be referenced by module.
+
+### module.includeVendorStyles
+Same as includeVendorScripts
+
+### module.excludeStandaloneStyles
+If this property set, specified styles will be subtracted from all standalone styles and will be referenced.
+
+### module.excludeVendorScripts
+Same...
+
+### module.excludeVendorStyles
+Same...
