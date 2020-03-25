@@ -191,6 +191,7 @@ You put your source files in theese directories.
 #### modules
 This directory is where the your modules reside. Entire client project exists as modules. Each module has its own markup, style and script file. Modules file structure is like this:
 
+```
 modules
 ├── root.html
 ├── root.scss
@@ -209,3 +210,4 @@ modules
 │       │── moduleBB.scss
 │       └── moduleBB.ts
 └── ...
+```
