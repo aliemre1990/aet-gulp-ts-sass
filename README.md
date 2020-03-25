@@ -240,7 +240,7 @@ Where your module script files reside.
 ## referenceParentPaths
 Paths that will be used in script and style tags. Usually you wont need to change theese properties.
 
-## modules
+## moduleConfiguration
 Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'.
 
 ### module.substitutingModules
@@ -269,3 +269,34 @@ Same...
 
 ### module.excludeVendorStyles
 Same...
+
+## layoutModuleConfiguration
+Same as module configuration.
+
+By default unless you explicitly set layout modules will be determined by matching module path with layout module path. If you have only root layout module your all modules will use this. But for example you have layout module named 'vehicle' and modules named 'vehicle_add', 'vehicle_edit' they will use vehicle layout module. And vehicle layout module will use root layout module. Module chain will be like 'root>vehicle>vehicle_add' and 'root>vehicle>vehicle_edit'. You can change layout chain by explicitly setting layout modules configuration's layoutModule property. Until now i didn't faced such scenario but it's possible. 
+
+Also including and excludeing scripts and styles may confuse you because they exists at modules and layout modules same time. The lower in the chain overridies the higher ones. For example if i use include/exclude properties in 'vehicle_edit' module it overrides if they exist in 'vehicle' layout module. Same is valid for markup template property. Lower in the chain overrides if exists in higher in the chain.
+
+## vendorScripts
+Used to define your vendor script libraries.
+
+## vendorStyles
+...
+
+## contentPlaceHolder
+Place holder text that will be used in layout markup files. Put theese text where you want your module content be replaced.
+
+## defaultMarkupTemplate
+Default empty html file.
+
+## moduleNameSeperator
+Seperator character used in module names. 
+
+## validStandaloneLibraryEntryFileNames
+If your standalone library resides in folder, than main files must be one of theese.
+
+## moduleFileName
+A module file may have containing folders name or this name. 'vehicle_edit'-> edit.html or {this}.html
+
+## rootModuleFileName
+File name used in root module files.
