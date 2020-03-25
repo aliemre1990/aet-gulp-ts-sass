@@ -2,7 +2,7 @@
 npm install aet-gulp-ts-sass
 
 # Description
-This project is boilerplate for client side typescript projects. Unless you add or remove a file it builds only required files. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Your modules matched with corresponding layout modules by checking their file name. With configuration file you can configure different layouting chain. 
+This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file name. With configuration file you can configure different layouting chain. 
 
 In this project modules and layout modules exists in this file structure:
 ```
@@ -212,33 +212,18 @@ And here is example configuration object.
 
 ### Input Directories
 You put your source files in theese directories.
-#### modules
-This directory is where the your modules reside. Entire client project exists as modules. Each module has its own markup, style and script file.
-
-### layoutModules
-Where layout modules reside. Layout module file structure is same as modules.
-
-### libraryScripts
-Your imported script files that are used by module or layout module script files.
-
-### libraryStyles
-Your imported style files that are used by module or layout module style files.
-
-### standaloneStyleLibraries
-Your standalone styles. They will be referenced independently on markup files.
-
-### markupTemplates
+* **modules:**   This directory is where the your modules reside. Entire client project exists as modules. Each module has its own markup, style and script file.
+* **layoutModules:** Where layout modules reside. Layout module file structure is same as modules.
+* **libraryScripts:** Your imported script files that are used by module or layout module script files.
+* **libraryStyles:** Your imported style files that are used by module or layout module style files.
+* **standaloneStyleLibraries:** Your standalone styles. They will be referenced independently on markup files.
+* **markupTemplates**
 Where your html markup boilerplate files reside. Theese files are empty html templates. Usually you will have a single file here.
 
 ## outputDirectories
 The paths where your built files will reside.
-
-### markupFiles
-Where your built markup files reside.
-
-### moduleScripts
-Where your built module script files reside. 
-... And so on...
+* **markupFiles:** Where your built markup files reside.
+* **moduleScripts:** Where your built module script files reside. 
 
 ## referenceParentPaths
 Paths that will be used in script and style tags. We will use these paths to determine file type. Is referenced script tag module script or layout script. Or vendor script. Usually you wont need to change theese properties.
@@ -246,32 +231,15 @@ Paths that will be used in script and style tags. We will use these paths to det
 ## moduleConfiguration
 Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'. Module in the root folder is named with value of 'rootModuleFileName' property. For configuring root module we will use this name as key.
 
-### module.substitutingModules
-If you want to use one module for multiple module paths use this property. Its good at situations like using same page for adding and editing.
-
-### module.layoutModule
-It's used to set layoutModule for module explicitly. By default layout module is determined by matching the module path with layout module path.
-
-### module.markupTemplate
-Used to set modules markup template file explicitly. 
-
-### module.includeStandaloneStyles
-Used to determine which standalone styles will be added to the module.
-
-### module.includeVendorScripts
-If this property set only specified vendor scripts will be referenced by module.
-
-### module.includeVendorStyles
-Same as includeVendorScripts
-
-### module.excludeStandaloneStyles
-If this property set, specified styles will be subtracted from all standalone styles and will be referenced.
-
-### module.excludeVendorScripts
-Same...
-
-### module.excludeVendorStyles
-Same...
+* **substitutingModules:** If you want to use a module in place of other modules use this property. Its good at situations like using same page for adding and editing.
+* **layoutModule:** It's used to set layoutModule for module explicitly. By default layout module is determined by matching the module path with layout module path.
+* **markupTemplate:** Used to set modules markup template file explicitly. By default value of default markup template property is used.
+* **includeStandaloneStyles:** Used to determine which standalone styles will be added to the module. If this property set, only values in this property will be referenced.
+* **includeVendorScripts:** If this property set only specified vendor scripts will be referenced by module.
+* **includeVendorStyles:** Same as includeVendorScripts.
+* **excludeStandaloneStyles:** If this property set, specified styles will be subtracted from all standalone styles and will be referenced.
+* **excludeVendorScripts:** Same logic as exclude standalone styles
+* **module.excludeVendorStyles:** Same...
 
 ## layoutModuleConfiguration
 Same as module configuration.
@@ -299,7 +267,7 @@ Seperator character used in module names.
 If your standalone library resides in folder, than main files must be one of theese.
 
 ## moduleFileName
-A module file may have containing folders name or this name. 'vehicle_edit'-> edit.html or {this}.html
+A module file, may have containing folder's name or this name. 'vehicle_edit'-> edit.html or {this}.html
 
 ## rootModuleFileName
 File name used in root module files.
@@ -319,7 +287,7 @@ clientController.build();
         let filePath = clientController.getScriptFileOutputPath(scriptType, scriptName,true);
 
         if (filePath) {
-            return res.status(200).sendFile(path.join(process.cwd(), filePath), { headers: { 'Content-Type': 'text/javascript' } });
+            return res.status(200).sendFile(filePath, { headers: { 'Content-Type': 'text/javascript' } });
         } else
             next();
     });
@@ -330,7 +298,7 @@ app.get('/styles/:styleType/:styleName', (req, res, next) => {
         let filePath = clientController.getStyleFileOutputPath(styleType, styleName,true);
 
         if (filePath) {
-            return res.status(200).sendFile(path.join(process.cwd(), filePath), { headers: { 'Content-Type': 'text/css' } });
+            return res.status(200).sendFile(filePath, { headers: { 'Content-Type': 'text/css' } });
         } else
             next();
     });
