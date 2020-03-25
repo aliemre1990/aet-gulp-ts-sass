@@ -1,0 +1,2 @@
+# Description
+This project is boilerplate for client side typescript projects. Unless you add or remove a typescript file it builds only required files. And it has a markup layouting system. Mathces your modules with corresponding layout modules by checking their file name. With configuration file you can configure different layouting chain. To understand better lets explain client configuration file.
