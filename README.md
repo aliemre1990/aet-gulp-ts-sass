@@ -275,7 +275,7 @@ Same...
 ## layoutModuleConfiguration
 Same as module configuration.
 
-By default unless you explicitly set layout modules will be determined by matching module path with layout module path. If you have only root layout module your all modules will use this. But for example you have layout module named 'vehicle' and modules named 'vehicle_add', 'vehicle_edit' they will use vehicle layout module. And vehicle layout module will use root layout module. Module chain will be like 'root>vehicle>vehicle_add' and 'root>vehicle>vehicle_edit'. You can change layout chain by explicitly setting layout modules configuration's layoutModule property. Until now i didn't faced such scenario but it's possible. 
+By default unless you explicitly set layout modules will be determined by matching module path with layout module path. If you have only root layout module your all modules will use this. But for example you have layout module named 'vehicle' and modules named 'vehicle_add', 'vehicle_edit' they will use vehicle layout module. And vehicle layout module will use root layout module. Module chain will be like 'root>vehicle>vehicle_add' and 'root>vehicle>vehicle_edit'. You can change layout chain by explicitly setting layout module configuration's layoutModule property. Until now i didn't faced such scenario but it's possible. 
 
 Also including and excludeing scripts and styles may confuse you because they exists at modules and layout modules same time. The lower in the chain overridies the higher ones. For example if i use include/exclude properties in 'vehicle_edit' module it overrides if they exist in 'vehicle' layout module. Same is valid for markup template property. Lower in the chain overrides if exists in higher in the chain.
 
@@ -315,7 +315,7 @@ clientController.build();
  app.get('/scripts/:scriptType/:scriptName', (req, res, next) => {
         let scriptType = req.params.scriptType;
         let scriptName = req.params.scriptName;
-        let filePath = clientController.getScriptFileOutputPath(scriptType, scriptName);
+        let filePath = clientController.getScriptFileOutputPath(scriptType, scriptName,true);
 
         if (filePath) {
             return res.status(200).sendFile(path.join(process.cwd(), filePath), { headers: { 'Content-Type': 'text/javascript' } });
@@ -326,7 +326,7 @@ clientController.build();
 app.get('/styles/:styleType/:styleName', (req, res, next) => {
         let styleType = req.params.styleType;
         let styleName = req.params.styleName;
-        let filePath = clientController.getStyleFileOutputPath(styleType, styleName);
+        let filePath = clientController.getStyleFileOutputPath(styleType, styleName,true);
 
         if (filePath) {
             return res.status(200).sendFile(path.join(process.cwd(), filePath), { headers: { 'Content-Type': 'text/css' } });
