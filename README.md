@@ -2,7 +2,7 @@
 npm install aet-gulp-ts-sass
 
 # Description
-This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file name. With configuration file you can configure different layouting chain. 
+This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file path. With configuration file you can configure different layouting chain. 
 
 In this project modules and layout modules exists in this file structure:
 ```
@@ -65,12 +65,6 @@ Here is type definition for configuration
  * @param {string} moduleStyles
  * @param {string} layoutModuleStyles
  * @param {string} moduleMarkupFiles
- */
-
-/**
- * @typedef {Object} ConfigurationVendorScript
- * @property {string} standardPath
- * @property {string} minPath
  */
 
 /**
@@ -252,7 +246,7 @@ Also including and excludeing scripts and styles may confuse you because they ex
 Used to define your vendor script libraries.
 
 ## vendorStyles
-...
+Used to define your vendor style libraries.
 
 ## contentPlaceHolder
 Place holder text that will be used in layout markup files. Put theese text where you want your module content be replaced.
@@ -278,38 +272,38 @@ const ClientController = require('aet-gulp-ts-sass');
 const clientController = new ClientController(path.join(process.cwd(), 'clientConfiguration.js'), clientProdMode);
 
 clientController.build();
-        if (clientWatchMode)
-            clientController.watch();
+if (clientWatchMode)
+     clientController.watch();
 
  app.get('/scripts/:scriptType/:scriptName', (req, res, next) => {
-        let scriptType = req.params.scriptType;
-        let scriptName = req.params.scriptName;
-        let filePath = clientController.getScriptFileOutputPath(scriptType, scriptName,true);
+    let scriptType = req.params.scriptType;
+    let scriptName = req.params.scriptName;
+    let filePath = clientController.getScriptFileOutputPath(scriptType, scriptName,true);
 
-        if (filePath) {
-            return res.status(200).sendFile(filePath, { headers: { 'Content-Type': 'text/javascript' } });
+    if (filePath) {
+        return res.status(200).sendFile(filePath, { headers: { Content-Type': 'text/javascript' } });
         } else
             next();
-    });
+});
 
 app.get('/styles/:styleType/:styleName', (req, res, next) => {
-        let styleType = req.params.styleType;
-        let styleName = req.params.styleName;
-        let filePath = clientController.getStyleFileOutputPath(styleType, styleName,true);
+    let styleType = req.params.styleType;
+    let styleName = req.params.styleName;
+    let filePath = clientController.getStyleFileOutputPath(styleType, styleName,true);
 
-        if (filePath) {
-            return res.status(200).sendFile(filePath, { headers: { 'Content-Type': 'text/css' } });
-        } else
-            next();
-    });
+    if (filePath) {
+        return res.status(200).sendFile(filePath, { headers: { 'Content-Type': 'text/css' } });
+    } else
+    next();
+});
 
 app.get('*', (req, res, next) => {
-        let filePath = clientController.getModuleMarkupFileOutputPath(req.path, true);// remove / at the beginning
-        if (filePath) {
-            return res.status(200).sendFile(filePath);
-        } else
-            next();
-    });
+    let filePath = clientController.getModuleMarkupFileOutputPath(req.path, true);// remove / at the beginning
+    if (filePath) {
+        return res.status(200).sendFile(filePath);
+    } else
+        next();
+});
 ```
 # Working Example
 
