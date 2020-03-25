@@ -1,6 +1,0 @@
-{
-    "watch": [
-        "main.js",
-        "server/**/*"
-    ]
-}
