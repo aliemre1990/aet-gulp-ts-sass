@@ -308,6 +308,10 @@ File name used in root module files.
 const ClientController = require('aet-gulp-ts-sass');
 const clientController = new ClientController(path.join(process.cwd(), 'clientConfiguration.js'), clientProdMode);
 
+clientController.build();
+        if (clientWatchMode)
+            clientController.watch();
+
  app.get('/scripts/:scriptType/:scriptName', (req, res, next) => {
         let scriptType = req.params.scriptType;
         let scriptName = req.params.scriptName;
