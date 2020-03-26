@@ -267,8 +267,13 @@ File name used in root module files.
 
 # Usage
 ```
-const ClientController = require('aet-gulp-ts-sass');
-const clientController = new ClientController(path.join(process.cwd(), 'clientConfiguration.js'), clientProdMode);
+const ClientController = require('aet-gulp-ts-sass');  let tsConfig = JSON.parse(fs.readFileSync('tsconfig.json'));
+let tsConfig = JSON.parse(fs.readFileSync('tsconfig.json'));
+const clientController = new ClientController(
+        path.join(process.cwd(), 'clientConfiguration.js'),
+        tsConfig.compilerOptions,
+        clientProdMode);
+    global.clientController = clientController;
 
 clientController.build();
 if (clientWatchMode)
