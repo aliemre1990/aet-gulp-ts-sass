@@ -2,7 +2,7 @@
 npm install aet-gulp-ts-sass
 
 # Description
-This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file path. With configuration file you can configure different layouting chain. 
+This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file path. With configuration file you can configure different layouting chain. It alsa adds script and style tags. Added script and style tags can be adjusted via configuration file.
 
 In this project modules and layout modules exists in this file structure:
 ```
@@ -267,8 +267,10 @@ File name used in root module files.
 
 # Usage
 ```
-const ClientController = require('aet-gulp-ts-sass');  let tsConfig = JSON.parse(fs.readFileSync('tsconfig.json'));
+const ClientController = require('aet-gulp-ts-sass'); 
+
 let tsConfig = JSON.parse(fs.readFileSync('tsconfig.json'));
+
 const clientController = new ClientController(
         path.join(process.cwd(), 'clientConfiguration.js'),
         tsConfig.compilerOptions,
