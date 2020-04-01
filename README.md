@@ -2,7 +2,7 @@
 npm install aet-gulp-ts-sass
 
 # Description
-This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file path. With configuration file you can configure different layouting chain. It alsa adds script and style tags. Added script and style tags can be adjusted via configuration file.
+This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file, and optionally a json file. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file path. With configuration file you can configure different layouting chain. It alsa adds script and style tags automatically based on your configuration. Added script and style tags can be adjusted via configuration file.
 
 In this project modules and layout modules exists in this file structure:
 ```
@@ -10,18 +10,22 @@ In this project modules and layout modules exists in this file structure:
 ├── root.html
 ├── root.scss
 ├── root.ts
+├── root.json(optional)
 ├── moduleA
 │   ├── moduleA.html
 │   ├── moduleA.scss
+│   ├── moduleA.json(optional)
 │   └── moduleA.ts
 ├── moduleB
 │   │── moduleBA
 │   │   ├── moduleBA.html
 │   │   │── moduleBA.scss
+│   │   │── moduleBA.json(optional)
 │   │   └── moduleBA.ts
 │   └── moduleBB
 │       ├── moduleBB.html
 │       │── moduleBB.scss
+│       │── moduleBB.json(optional)
 │       └── moduleBB.ts
 └── ...
 ```
