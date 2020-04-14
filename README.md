@@ -134,24 +134,16 @@ And here is example configuration object.
         standaloneStyleLibraries: 'clientSource/standaloneStyleLibraries',
         markupTemplates: 'clientSource/markupTemplates'
     },
+    publicDirectory:'public'
     outputDirectories: {
-        markupFiles: 'clientOutput/markupFiles',
-        moduleScripts: 'clientOutput/moduleScripts',
-        moduleStyles: 'clientOutput/moduleStyles',
-        layoutModuleScripts: 'clientOutput/layoutModuleScripts',
-        layoutModuleStyles: 'clientOutput/layoutModuleStyles',
-        standaloneStyleLibraries: 'clientOutput/standaloneStyleLibraries',
-        vendorScripts: 'clientOutput/vendorScripts',
-        vendorStyles: 'clientOutput/vendorStyles'
-    },
-    referenceParentPaths: {
-        vendorScripts: 'vendorScripts',
-        layoutModuleScripts: 'layoutModuleScripts',
+        markupFiles: 'markupFiles',
         moduleScripts: 'moduleScripts',
-        vendorStyles: 'vendorStyles',
-        standaloneLibraryStyles: 'standaloneLibraryStyles',
+        moduleStyles: 'moduleStyles',
+        layoutModuleScripts: 'layoutModuleScripts',
         layoutModuleStyles: 'layoutModuleStyles',
-        moduleStyles: 'moduleStyles'
+        standaloneStyleLibraries: 'standaloneStyleLibraries',
+        vendorScripts: 'vendorScripts',
+        vendorStyles: 'vendorStyles'
     },
     modules: {
         'errors_404': {
@@ -221,9 +213,6 @@ Where your html markup boilerplate files reside. Theese files are empty html tem
 The paths where your built files will reside.
 * **markupFiles:** Where your built markup files reside.
 * **moduleScripts:** Where your built module script files reside. 
-
-## referenceParentPaths
-Paths that will be used in script and style tags. We will use these paths to determine file type. Is referenced script tag module script or layout script. Or vendor script. Usually you wont need to change theese properties.
 
 ## moduleConfiguration
 Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'. Module in the root folder is named with value of 'rootModuleFileName' property. For configuring root module we will use this name as key.
