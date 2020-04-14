@@ -285,30 +285,8 @@ clientController.build();
 if (clientWatchMode)
      clientController.watch();
 
- app.get('/scripts/:scriptType/:scriptName', (req, res, next) => {
-    let scriptType = req.params.scriptType;
-    let scriptName = req.params.scriptName;
-    let filePath = clientController.getScriptFileOutputPath(scriptType, scriptName,true);
-
-    if (filePath) {
-        return res.status(200).sendFile(filePath, { headers: { Content-Type': 'text/javascript' } });
-        } else
-            next();
-});
-
-app.get('/styles/:styleType/:styleName', (req, res, next) => {
-    let styleType = req.params.styleType;
-    let styleName = req.params.styleName;
-    let filePath = clientController.getStyleFileOutputPath(styleType, styleName,true);
-
-    if (filePath) {
-        return res.status(200).sendFile(filePath, { headers: { 'Content-Type': 'text/css' } });
-    } else
-    next();
-});
-
 app.get('*', (req, res, next) => {
-    let filePath = clientController.getModuleMarkupFileOutputPath(req.path, true);// remove / at the beginning
+    let filePath = clientController.getModuleMarkupFileOutputPath(req.path, true);
     if (filePath) {
         return res.status(200).sendFile(filePath);
     } else
