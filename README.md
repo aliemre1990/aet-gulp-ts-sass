@@ -60,18 +60,6 @@ Here is type definition for configuration
  */
 
 /**
- * @typedef {Object} ConfigurationReferenceParentPaths
- * @param {string} vendorScripts
- * @param {string} moduleScripts
- * @param {string} layoutModuleScripts
- * @param {string} vendorStyles
- * @param {string} standaloneLibraryStyles
- * @param {string} moduleStyles
- * @param {string} layoutModuleStyles
- * @param {string} moduleMarkupFiles
- */
-
-/**
  * @typedef {Object} ConfigurationVendor
  * @property {string} standardPath
  * @property {string} minPath
