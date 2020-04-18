@@ -102,6 +102,7 @@ Here is type definition for configuration
  * @property {Object.<string,ConfigurationVendor>} vendorStyles
  * @property {Object.<string,ConfigurationModule>} modules
  * @property {Object.<string,ConfigurationLayoutModule>} layoutModules
+ * @property {string} publicDirectory
  * @property {string} defaultMarkupTemplate
  * @property {string} contentPlaceHolder
  * @property {string} moduleNameSeperator
@@ -197,10 +198,19 @@ You put your source files in theese directories.
 * **markupTemplates**
 Where your html markup boilerplate files reside. Theese files are empty html templates. Usually you will have a single file here.
 
+## publicDirectory
+Where your public files reside. The processed files will be in this directory.
+
 ## outputDirectories
-The paths where your built files will reside.
+The paths where your built files will reside. These directories will be in publicDirectory.
 * **markupFiles:** Where your built markup files reside.
 * **moduleScripts:** Where your built module script files reside. 
+* **moduleStyles:**
+* **layoutModuleScripts:**
+* **layoutModuleStyles:**
+* **standaloneStyleLibraries:**
+* **vendorScripts:**
+* **vendorStyles:** 
 
 ## moduleConfiguration
 Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'. Module in the root folder is named with value of 'rootModuleFileName' property. For configuring root module we will use this name as key.
@@ -221,6 +231,7 @@ Same as module configuration.
 By default unless you explicitly set layout modules will be determined by matching module path with layout module path. If you have only root layout module your all modules will use this. But for example you have layout module named 'vehicle' and modules named 'vehicle_add', 'vehicle_edit' they will use vehicle layout module. And vehicle layout module will use root layout module. Module chain will be like 'root>vehicle>vehicle_add' and 'root>vehicle>vehicle_edit'. You can change layout chain by explicitly setting layout module configuration's layoutModule property. Until now i didn't faced such scenario but it's possible. 
 
 Also including and excludeing scripts and styles may confuse you because they exists at modules and layout modules same time. The lower in the chain overridies the higher ones. For example if i use include/exclude properties in 'vehicle_edit' module it overrides if they exist in 'vehicle' layout module. Same is valid for markup template property. Lower in the chain overrides if exists in higher in the chain.
+
 
 ## vendorScripts
 Used to define your vendor script libraries.
