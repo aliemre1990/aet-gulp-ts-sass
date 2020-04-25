@@ -290,4 +290,4 @@ app.get('*', (req, res, next) => {
 ```
 # Working Example
 
-https://github.com/aliemre1990/aet-carrental
+https://github.com/aliemre1990/aet-gullp-ts-sass-example
