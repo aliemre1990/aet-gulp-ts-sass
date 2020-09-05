@@ -60,19 +60,25 @@ Here is type definition for configuration
  */
 
 /**
- * @typedef {Object} ConfigurationVendor
- * @property {string} standardPath
- * @property {string} minPath
- * @property {string} standardMapPath
- * @property {string} minMapPath
+ * @typedef {Object} ConfigurationVendorEntirelyCopiedReferencePaths
+ * @property {string} standardRelativePath
+ * @property {string} minRelativePath
  */
 
+/**
+ * @typedef {Object} ConfigurationVendor
+ * @property {string} standardPath
+ * @property {string} standardMapPath
+ * @property {string} minPath
+ * @property {string} minMapPath
+ * @property {boolean} copyEntirely
+ * @property {string} directoryPathThatWillBeCopiedEntirely
+ * @property {ConfigurationVendorEntirelyCopiedReferencePaths[]} relativePathsOfReferencesThatCopiedEntirely
+ */
 
 /**
  * @typedef {Object} ConfigurationModule
  * @property {string[]} substitutingModules
- * @property {string[]} additionalScriptReferences
- * @property {string[]} additionalStyleReferences
  * @property {string} layoutModule
  * @property {string} markupTemplate
  * @property {string[]} includeStandaloneStyles
@@ -81,12 +87,12 @@ Here is type definition for configuration
  * @property {string[]} excludeStandaloneStyles
  * @property {string[]} excludeVendorScripts
  * @property {string[]} excludeVendorStyles
+ * @property {string[]} staticScriptReferences Static script references
+ * @property {string[]} staticStyleReferences Static style references
  */
 
 /**
  * @typedef {Object} ConfigurationLayoutModule
- * @property {string[]} additionalScriptReferences
- * @property {string[]} additionalStyleReferences
  * @property {string} layoutModule
  * @property {string} markupTemplate
  * @property {string[]} includeStandaloneStyles
@@ -95,6 +101,8 @@ Here is type definition for configuration
  * @property {string[]} excludeStandaloneStyles
  * @property {string[]} excludeVendorScripts
  * @property {string[]} excludeVendorStyles
+ * @property {string[]} staticScriptReferences
+ * @property {string[]} staticStyleReferences
  */
 
 /**
@@ -154,7 +162,10 @@ And here is example configuration object.
         },
         'vehicle_add': {
             substitutingModules: ['vehicle_edit'],
-            additionalScriptReferences:'vendor/ckeditor4/ckeditor.js'
+            staticStyleReferences:[
+                '//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css',
+                '/path/to/some/vendor.css'
+                ]
         }
     },
     layoutModules: {
@@ -175,6 +186,11 @@ And here is example configuration object.
             standardMapPath: 'node_modules/axios/dist/axios.map',
             minPath: 'node_modules/axios/dist/axios.min.js',
             minMapPath: 'node_modules/axios/dist/axios.min.map',
+        },
+        ckeditor:{
+            copyEntirely:true,
+            directoryPathThatWillBeCopiedEntirely:'node_modules/ckeditor4',
+            relativePathsOfReferencesThatCopiedEntirely:'ckeditor.js'
         }
     },
     vendorStyles: {
@@ -229,15 +245,15 @@ Module configurations. Keys will be each modules name. A modules name is determi
 * **includeVendorStyles:** Same as includeVendorScripts.
 * **excludeStandaloneStyles:** If this property set, specified styles will be subtracted from all standalone styles and will be referenced.
 * **excludeVendorScripts:** Same logic as exclude standalone styles
-* **module.excludeVendorStyles:** Same...
-* **additionalStyleReferences&additionalScriptReferences:** Some vendors might need to be transfered entirely and referenced manually like 'ckeditor4'. Put your vendor to appropirate folder in public directory and add reference path to this property.
+* **excludeVendorStyles:** Same...
+* **staticStyleReferences&staticScriptReferences:** Some script and style files might needed to referenced statically. Or you may want to add references from web. Or you may want to copy an vendor to public folder and add reference to there.
 
 ## layoutModuleConfiguration
 Same as module configuration.
 
 By default unless you explicitly set layout modules will be determined by matching module path with layout module path. If you have only root layout module your all modules will use this. But for example you have layout module named 'vehicle' and modules named 'vehicle_add', 'vehicle_edit' they will use vehicle layout module. And vehicle layout module will use root layout module. Module chain will be like 'root>vehicle>vehicle_add' and 'root>vehicle>vehicle_edit'. You can change layout chain by explicitly setting layout module configuration's layoutModule property. Until now i didn't faced such scenario but it's possible. 
 
-Also including and excludeing scripts and styles may confuse you because they exists at modules and layout modules same time. The lower in the chain overridies the higher ones. For example if i use include/exclude properties in 'vehicle_edit' module it overrides if they exist in 'vehicle' layout module. Same is valid for markup template property. Lower in the chain overrides if exists in higher in the chain. Same logic applies in additionalStyle&ScriptReferences property.
+Also including and excludeing scripts and styles may confuse you because they exists at modules and layout modules same time. The lower in the chain overridies the higher ones. For example if i use include/exclude properties in 'vehicle_edit' module it overrides if they exist in 'vehicle' layout module. Same is valid for markup template property. Lower in the chain overrides if exists in higher in the chain. Same logic applies in staticStyle&ScriptReferences property.
 
 
 ## vendorScripts
