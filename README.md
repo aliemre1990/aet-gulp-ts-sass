@@ -42,6 +42,7 @@ Here is type definition for configuration
  * @property {string} modules
  * @property {string} layoutModules
  * @property {string} standaloneStyleLibraries
+ * @property {string} standaloneScriptLibraries
  * @property {string} libraryScripts
  * @property {string} libraryStyles
  * @property {string} markupTemplates
@@ -60,20 +61,15 @@ Here is type definition for configuration
  */
 
 /**
- * @typedef {Object} ConfigurationVendorEntirelyCopiedReferencePaths
- * @property {string} standardRelativePath
- * @property {string} minRelativePath
+ * @typedef {Object} RelativePathOfReference
+ * @property {string} standardPath
+ * @property {string} minPath
  */
 
 /**
  * @typedef {Object} ConfigurationVendor
- * @property {string} standardPath
- * @property {string} standardMapPath
- * @property {string} minPath
- * @property {string} minMapPath
- * @property {boolean} copyEntirely
- * @property {string} directoryPathThatWillBeCopiedEntirely
- * @property {ConfigurationVendorEntirelyCopiedReferencePaths[]} relativePathsOfReferencesThatCopiedEntirely
+ * @property {string} sourceDirectory
+ * @property {RelativePathOfReference[]} relativePathsOfReferences
  */
 
 /**
@@ -87,8 +83,8 @@ Here is type definition for configuration
  * @property {string[]} excludeStandaloneStyles
  * @property {string[]} excludeVendorScripts
  * @property {string[]} excludeVendorStyles
- * @property {string[]} staticScriptReferences Static script references
- * @property {string[]} staticStyleReferences Static style references
+ * @property {string[]} staticScriptReferences
+ * @property {string[]} staticStyleReferences
  */
 
 /**
@@ -172,25 +168,8 @@ And here is example configuration object.
     },
     vendorScripts: {
         jquery: {
-            standardPath: 'node_modules/jquery/dist/jquery.js',
-            minPath: 'node_modules/jquery/dist/jquery.min.js',
-        },
-        bootstrap: {
-            standardPath: 'node_modules/bootstrap/dist/js/bootstrap.js',
-            minPath: 'node_modules/bootstrap/dist/js/bootstrap.min.js',
-            standardMapPath: 'node_modules/bootstrap/dist/js/bootstrap.js.map',
-            minMapPath: 'node_modules/bootstrap/dist/js/bootstrap.min.js.map'
-        },
-        axios: {
-            standardPath: 'node_modules/axios/dist/axios.js',
-            standardMapPath: 'node_modules/axios/dist/axios.map',
-            minPath: 'node_modules/axios/dist/axios.min.js',
-            minMapPath: 'node_modules/axios/dist/axios.min.map',
-        },
-        ckeditor:{
-            copyEntirely:true,
-            directoryPathThatWillBeCopiedEntirely:'node_modules/ckeditor4',
-            relativePathsOfReferencesThatCopiedEntirely:'ckeditor.js'
+            sourceDirectory:'node_modules/jquery
+            relativePathsOfReferences:[{standardPath:'jquery',minPath:'jquery.min.js'}]
         }
     },
     vendorStyles: {
