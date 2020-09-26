@@ -6,7 +6,7 @@ This library is for client side typescript projects. It builds and watches your 
 
 In this project modules and layout modules exists in this file structure:
 ```
-{inputDirectories.modules}
+{sourceDirectories.modules}
 ├── root.html
 ├── root.scss
 ├── root.ts
@@ -264,7 +264,7 @@ The paths where your built files will reside. These directories will be in publi
 * **vendorStyles:** 
 
 ## moduleConfiguration
-Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{inputDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'. Module in the root folder is named with value of 'rootModuleFileName' property. For configuring root module we will use this name as key.
+Module configurations. Keys will be each modules name. A modules name is determined by its folder name relative from module input directory. For example a module inside a folder '{process.cwd()}/{sourceDirectories.modules}/moduleA/moduleAB and let module name seperator be '_' then module name will be 'moduleA_moduleAB'. Module in the root folder is named with value of 'rootModuleFileName' property. For configuring root module we will use this name as key.
 
 * **substitutingModules:** If you want to use a module in place of other modules use this property. Its good at situations like using same page for adding and editing.
 * **layoutModule:** It's used to set layoutModule for module explicitly. By default layout module is determined by matching the module path with layout module path.
