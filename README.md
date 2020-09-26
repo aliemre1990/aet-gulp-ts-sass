@@ -38,7 +38,7 @@ To understand this project better lets explain client configuration file.
 Here is type definition for configuration
 ```
 /**
- * @typedef {Object} ConfigurationInputDirectories
+ * @typedef {Object} ConfigurationSourceDirectories
  * @property {string} modules
  * @property {string} layoutModules
  * @property {string} standaloneStyleLibraries
@@ -103,8 +103,8 @@ Here is type definition for configuration
 
 /**
  * Represents configuration object for build process.
- * @typedef {Object} Configuration
- * @property {ConfigurationInputDirectories} inputDirectories
+ * @property {string} projectDirectory
+ * @property {ConfigurationSourceDirectories} sourceDirectories
  * @property {ConfigurationOutputDirectories} outputDirectories
  * @property {ConfigurationReferenceParentPaths} referenceParentPaths
  * @property {Object.<string,ConfigurationVendor} vendorScripts
@@ -124,60 +124,109 @@ Here is type definition for configuration
 And here is example configuration object.
 ```
 {
-    inputDirectories: {
-        modules: 'clientSource/modules',
-        layoutModules: 'clientSource/layoutModules',
-        libraryScripts: 'clientSource/libraryScripts',
-        libraryStyles: 'clientSource/libraryStyles',
-        standaloneStyleLibraries: 'clientSource/standaloneStyleLibraries',
-        markupTemplates: 'clientSource/markupTemplates'
-    },
-    publicDirectory:'public'
-    outputDirectories: {
-        markupFiles: 'markupFiles',
-        moduleScripts: 'moduleScripts',
-        moduleStyles: 'moduleStyles',
-        layoutModuleScripts: 'layoutModuleScripts',
-        layoutModuleStyles: 'layoutModuleStyles',
+    projectDirectory: 'clientSource',
+    sourceDirectories: {
+        modules: 'modules',
+        layoutModules: 'layoutModules',
+        libraryScripts: 'libraryScripts',
+        libraryStyles: 'libraryStyles',
         standaloneStyleLibraries: 'standaloneStyleLibraries',
-        vendorScripts: 'vendorScripts',
-        vendorStyles: 'vendorStyles'
+        standaloneScriptLibraries: 'standaloneScriptLibraries',
+        markupTemplates: 'markupTemplates'
+    },
+    publicDirectory: 'public',
+    outputDirectories: {
+        markupFiles: 'build/markupFiles',
+        moduleScripts: 'build/moduleScripts',
+        moduleStyles: 'build/moduleStyles',
+        layoutModuleScripts: 'build/layoutModuleScripts',
+        layoutModuleStyles: 'build/layoutModuleStyles',
+        standaloneStyleLibraries: 'build/standaloneStyleLibraries',
+        standaloneScriptLibraries: 'build/standaloneScriptLibraries',
+        vendorScripts: 'build/vendorScripts',
+        vendorStyles: 'build/vendorStyles'
     },
     modules: {
-        'errors_404': {
-            includeVendorScripts: null,
-            includeVendorStyles: null,
-            includeStandaloneStyles: null,
-            layoutModule: null
-        },
-        'errors_401': {
-            includeVendorScripts: null,
-            includeVendorStyles: null,
-            includeStandaloneStyles: null,
-            layoutModule: null
-        },
-        'vehicle_add': {
-            substitutingModules: ['vehicle_edit'],
-            staticStyleReferences:[
-                '//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css',
-                '/path/to/some/vendor.css'
-                ]
-        }
-    },
+         'errors_404': {
+             includeVendorScripts: null,
+             includeVendorStyles: null,
+             includeStandaloneStyles: null,
+             layoutModule: null
+         },
+         'errors_401': {
+             includeVendorScripts: null,
+             includeVendorStyles: null,
+             includeStandaloneStyles: null,
+             layoutModule: null
+         },
+         'vehicle_add': {
+             substitutingModules: ['vehicle_edit'],
+         },
+         'vehicle-list': {
+         },
+         'admin': {
+             substitutingModules: ['admin_index', 'admin_home']
+         },
+         'customer_add': {
+         }
+     ,
     layoutModules: {
+
     },
     vendorScripts: {
         jquery: {
-            sourceDirectory:'node_modules/jquery
-            relativePathsOfReferences:[{standardPath:'jquery',minPath:'jquery.min.js'}]
+            sourceDirectory: 'node_modules/jquery',
+            relativePathsOfReferences: [{ standardPath: 'dist/jquery.js', minPath: 'dist/jquery.min.js' }]
+        },
+        'jquery-validation': {
+            sourceDirectory: 'node_modules/jquery-validation',
+            relativePathsOfReferences: [{ standardPath: 'dist/jquery.validate.js', minPath: 'dist/jquery.validate.min.js' }]
+        },
+        fontawesome: {
+            sourceDirectory: 'node_modules/@fortawesome',
+            relativePathsOfReferences: [{ standardPath: 'fontawesome-free/js/all.js', minPath: 'fontawesome-free/js/all.min.js' }]
+        },
+        lodash: {
+            sourceDirectory: 'node_modules/lodash',
+            relativePathsOfReferences: [{ standardPath: 'lodash.js', minPath: 'lodash.min.js' }]
+        },
+        toastr: {
+            sourceDirectory: 'node_modules/toastr',
+            relativePathsOfReferences: [{ standardPath: 'toastr.js', minPath: 'build/toastr.min.js' }]
+        },
+        moment: {
+            sourceDirectory: 'node_modules/moment',
+            relativePathsOfReferences: [{ standardPath: 'moment.js', minPath: 'min/moment.min.js' }]
+        },
+        handlebars: {
+            sourceDirectory: 'node_modules/handlebars',
+            relativePathsOfReferences: [{ standardPath: 'dist/handlebars.js', minPath: 'dist/handlebars.min.js' }]
+        },
+        axios: {
+            sourceDirectory: 'node_modules/axios',
+            relativePathsOfReferences: [{ standardPath: 'dist/axios.js', minPath: 'dist/axios.min.js' }]
+        },
+        'jquery-ui': {
+            sourceDirectory: 'node_modules/jquery-ui-dist',
+            relativePathsOfReferences: [{ standardPath: 'jquery-ui.js', minPath: 'jquery-ui.min.js' }]
+        },
+        'ckeditor4': {
+            sourceDirectory: 'node_modules/ckeditor4',
+            relativePathsOfReferences: [{ standardPath: 'ckeditor.js' }]
+        },
+        cleave: {
+            sourceDirectory: 'node_modules/cleave.js',
+            relativePathsOfReferences: [{ standardPath: 'dist/cleave.js', minPath: 'dist/cleave.min.js' }]
+        },
+        'jquery-mask-plugin': {
+            sourceDirectory: 'node_modules/jquery-mask-plugin',
+            relativePathsOfReferences: [{ standardPath: 'dist/jquery.mask.js', minPath: 'dist/jquery.mask.min.js' }]
         }
     },
     vendorStyles: {
-        bootstrap: {
-            standardPath: 'node_modules/bootstrap/dist/css/bootstrap.css',
-            minPath: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
-            standardMapPath: 'node_modules/bootstrap/dist/css/bootstrap.css.map',
-            minMapPath: 'node_modules/bootstrap/dist/css/bootstrap.min.css.map'
+        'jquery-ui': {
+            sourceDirectory: 'node_modules/jquery-ui-dist',
+            relativePathsOfReferences: [{ standardPath: 'jquery-ui.css', minPath: 'jquery-ui.min.css' }]
         }
     },
     contentPlaceHolder: '/////content/////',
@@ -188,8 +237,9 @@ And here is example configuration object.
     rootModuleFileName: 'root'
 }
 ```
-
-### Input Directories
+### projectDirectory
+Project's root directory.
+### Source Directories
 You put your source files in theese directories.
 * **modules:**   This directory is where the your modules reside. Entire client project exists as modules. Each module has its own markup, style and script file.
 * **layoutModules:** Where layout modules reside. Layout module file structure is same as modules.
