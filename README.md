@@ -72,6 +72,7 @@ Here is type definition for configuration
  * @property {RelativePathOfReference[]} relativePathsOfReferences
  */
 
+ 
 /**
  * @typedef {Object} ConfigurationModule
  * @property {string[]} substitutingModules
@@ -83,8 +84,10 @@ Here is type definition for configuration
  * @property {string[]} excludeStandaloneStyles
  * @property {string[]} excludeVendorScripts
  * @property {string[]} excludeVendorStyles
- * @property {string[]} staticScriptReferences
- * @property {string[]} staticStyleReferences
+ * @property {string[]} includeStaticScriptReferences
+ * @property {string[]} excludeStaticScriptReferences
+ * @property {string[]} includeStaticStyleReferences
+ * @property {string[]} excludeStaticStyleReferences
  */
 
 /**
@@ -97,18 +100,23 @@ Here is type definition for configuration
  * @property {string[]} excludeStandaloneStyles
  * @property {string[]} excludeVendorScripts
  * @property {string[]} excludeVendorStyles
- * @property {string[]} staticScriptReferences
- * @property {string[]} staticStyleReferences
+ * @property {string[]} includeStaticScriptReferences
+ * @property {string[]} excludeStaticScriptReferences
+ * @property {string[]} includeStaticStyleReferences
+ * @property {string[]} excludeStaticStyleReferences
  */
 
 /**
  * Represents configuration object for build process.
+ * @typedef {Object} Configuration
  * @property {string} projectDirectory
  * @property {ConfigurationSourceDirectories} sourceDirectories
  * @property {ConfigurationOutputDirectories} outputDirectories
  * @property {ConfigurationReferenceParentPaths} referenceParentPaths
  * @property {Object.<string,ConfigurationVendor} vendorScripts
  * @property {Object.<string,ConfigurationVendor>} vendorStyles
+ * @property {Object.<string,string>} staticScriptReferences
+ * @property {Object.<string,string>} staticStyleReferences
  * @property {Object.<string,ConfigurationModule>} modules
  * @property {Object.<string,ConfigurationLayoutModule>} layoutModules
  * @property {string} publicDirectory
