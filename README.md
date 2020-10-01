@@ -193,42 +193,6 @@ And here is example configuration object.
         fontawesome: {
             sourceDirectory: 'node_modules/@fortawesome',
             relativePathsOfReferences: [{ standardPath: 'fontawesome-free/js/all.js', minPath: 'fontawesome-free/js/all.min.js' }]
-        },
-        lodash: {
-            sourceDirectory: 'node_modules/lodash',
-            relativePathsOfReferences: [{ standardPath: 'lodash.js', minPath: 'lodash.min.js' }]
-        },
-        toastr: {
-            sourceDirectory: 'node_modules/toastr',
-            relativePathsOfReferences: [{ standardPath: 'toastr.js', minPath: 'build/toastr.min.js' }]
-        },
-        moment: {
-            sourceDirectory: 'node_modules/moment',
-            relativePathsOfReferences: [{ standardPath: 'moment.js', minPath: 'min/moment.min.js' }]
-        },
-        handlebars: {
-            sourceDirectory: 'node_modules/handlebars',
-            relativePathsOfReferences: [{ standardPath: 'dist/handlebars.js', minPath: 'dist/handlebars.min.js' }]
-        },
-        axios: {
-            sourceDirectory: 'node_modules/axios',
-            relativePathsOfReferences: [{ standardPath: 'dist/axios.js', minPath: 'dist/axios.min.js' }]
-        },
-        'jquery-ui': {
-            sourceDirectory: 'node_modules/jquery-ui-dist',
-            relativePathsOfReferences: [{ standardPath: 'jquery-ui.js', minPath: 'jquery-ui.min.js' }]
-        },
-        'ckeditor4': {
-            sourceDirectory: 'node_modules/ckeditor4',
-            relativePathsOfReferences: [{ standardPath: 'ckeditor.js' }]
-        },
-        cleave: {
-            sourceDirectory: 'node_modules/cleave.js',
-            relativePathsOfReferences: [{ standardPath: 'dist/cleave.js', minPath: 'dist/cleave.min.js' }]
-        },
-        'jquery-mask-plugin': {
-            sourceDirectory: 'node_modules/jquery-mask-plugin',
-            relativePathsOfReferences: [{ standardPath: 'dist/jquery.mask.js', minPath: 'dist/jquery.mask.min.js' }]
         }
     },
     vendorStyles: {
@@ -254,6 +218,7 @@ You put your source files in theese directories.
 * **libraryScripts:** Your imported script files that are used by module or layout module script files.
 * **libraryStyles:** Your imported style files that are used by module or layout module style files.
 * **standaloneStyleLibraries:** Your standalone styles. They will be referenced independently on markup files.
+* **standaloneScriptLibraries:** 
 * **markupTemplates**
 Where your html markup boilerplate files reside. Theese files are empty html templates. Usually you will have a single file here.
 
@@ -278,9 +243,11 @@ Module configurations. Keys will be each modules name. A modules name is determi
 * **layoutModule:** It's used to set layoutModule for module explicitly. By default layout module is determined by matching the module path with layout module path.
 * **markupTemplate:** Used to set modules markup template file explicitly. By default value of default markup template property is used.
 * **includeStandaloneStyles:** Used to determine which standalone styles will be added to the module. If this property set, only values in this property will be referenced.
+* **includeStandaloneScripts:**
 * **includeVendorScripts:** If this property set only specified vendor scripts will be referenced by module.
 * **includeVendorStyles:** Same as includeVendorScripts.
 * **excludeStandaloneStyles:** If this property set, specified styles will be subtracted from all standalone styles and will be referenced.
+* **excludeStandaloneScripts:**
 * **excludeVendorScripts:** Same logic as exclude standalone styles
 * **excludeVendorStyles:** Same...
 * **staticStyleReferences&staticScriptReferences:** Some script and style files might needed to referenced statically. Or you may want to add references from web. Or you may want to copy an vendor to public folder and add reference to there.
@@ -321,12 +288,10 @@ File name used in root module files.
 ```
 const ClientController = require('aet-gulp-ts-sass'); 
 
-let tsConfig = JSON.parse(fs.readFileSync('tsconfig.json'));
-
 const clientController = new ClientController(
         path.join(process.cwd(), 'clientConfiguration.js'),
-        tsConfig.compilerOptions,
-        clientProdMode);
+        clientProdMode,
+        clientDontCopyVendor); // Copying vendors takes a while. You can disable copying of vendors by this property.
     global.clientController = clientController;
 
 clientController.build();
