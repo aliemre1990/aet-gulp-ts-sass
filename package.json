@@ -1,6 +1,6 @@
 {
   "name": "aet-gulp-ts-sass",
-  "version": "1.5.17",
+  "version": "1.5.18",
   "description": "Build library for building client side typescript and sass projects.",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "rimraf": "^3.0.2",
     "tsify": "^4.0.1",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.7",
     "vinyl-source-stream": "^2.0.0"
   }
 }
