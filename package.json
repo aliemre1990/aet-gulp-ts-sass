@@ -1,6 +1,6 @@
 {
   "name": "aet-gulp-ts-sass",
-  "version": "1.5.18",
+  "version": "1.5.19",
   "description": "Build library for building client side typescript and sass projects.",
   "main": "index.js",
   "scripts": {
