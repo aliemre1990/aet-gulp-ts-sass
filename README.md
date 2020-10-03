@@ -211,7 +211,7 @@ And here is example configuration object.
 }
 ```
 ### projectType
-Type of project. 'typescript' or 'javascript'
+Type of project. 'typescript' or 'javascript'. Defaults to 'typescript'.
 ### projectDirectory
 Project's root directory.
 ### Source Directories
