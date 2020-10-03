@@ -108,6 +108,7 @@ Here is type definition for configuration
 
 /**
  * Represents configuration object for build process.
+ * @property {'typescript'|'javascript'} projectType
  * @typedef {Object} Configuration
  * @property {string} projectDirectory
  * @property {ConfigurationSourceDirectories} sourceDirectories
@@ -209,6 +210,8 @@ And here is example configuration object.
     rootModuleFileName: 'root'
 }
 ```
+### projectType
+Type of project. 'typescript' or 'javascript'
 ### projectDirectory
 Project's root directory.
 ### Source Directories
