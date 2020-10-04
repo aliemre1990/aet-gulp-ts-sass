@@ -127,6 +127,7 @@ Here is type definition for configuration
  * @property {string[]} validStandaloneLibraryEntryFileNames
  * @property {string} moduleFileName
  * @property {string} rootModuleFileName
+ * @property {string[]} validMarkupExtensions
  */
 ```
 
@@ -207,7 +208,8 @@ And here is example configuration object.
     moduleNameSeperator: '_',
     validStandaloneLibraryEntryFileNames: ['index', 'main'],
     moduleFileName: 'module',
-    rootModuleFileName: 'root'
+    rootModuleFileName: 'root',
+    validMarkupExtensions:['.html','.hbs']
 }
 ```
 ### projectType
@@ -286,6 +288,9 @@ A module file, may have containing folder's name or this name. 'vehicle_edit'-> 
 
 ## rootModuleFileName
 File name used in root module files.
+
+## validMarkupExtensions
+Extensions used in markup files. Defaults to ['.html']. No matter what extension you use for input files the output will be .html. There may be markup extension other than .html in input files. Because you may want to use code formatter for for example handlebars.
 
 # Usage
 ```
