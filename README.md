@@ -303,7 +303,7 @@ const clientController = new ClientController(
     global.clientController = clientController;
 
 clientController.build();
-if (clientWatchMode)
+if (clientprodMode)
      clientController.watch();
 
 app.get('*', (req, res, next) => {
