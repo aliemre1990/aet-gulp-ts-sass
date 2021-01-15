@@ -1,1 +1,1 @@
-module.exports = require('./lib/types/Controller');
+module.exports = { ClientController: require('./lib/types/Controller') };

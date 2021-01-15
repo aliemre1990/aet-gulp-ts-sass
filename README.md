@@ -113,7 +113,6 @@ Here is type definition for configuration
  * @property {string} projectDirectory
  * @property {ConfigurationSourceDirectories} sourceDirectories
  * @property {ConfigurationOutputDirectories} outputDirectories
- * @property {ConfigurationReferenceParentPaths} referenceParentPaths
  * @property {Object.<string,ConfigurationVendor} vendorScripts
  * @property {Object.<string,ConfigurationVendor>} vendorStyles
  * @property {Object.<string,string>} staticScriptReferences
@@ -294,7 +293,7 @@ Extensions used in markup files. Defaults to ['.html']. No matter what extension
 
 # Usage
 ```
-const ClientController = require('aet-gulp-ts-sass'); 
+const ClientController = require('aet-gulp-ts-sass').ClientController; 
 
 const clientController = new ClientController(
         path.join(process.cwd(), 'clientConfiguration.js'),
