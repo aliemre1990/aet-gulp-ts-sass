@@ -2,7 +2,7 @@
 npm install aet-gulp-ts-sass
 
 # Description
-This library is for client side typescript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file or change an independent module or layout module configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file, and optionally a json file which represents module configuration object below. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file path. With configuration file you can configure different layouting chain. It alsa adds script and style tags automatically based on your configuration. Added script and style tags can be adjusted via configuration file.
+This library is both for client side typescript and javascript projects. It builds and watches your source files using gulp. Unless you add or remove a file it builds only required files in watch mode. If you add or remove a new file or change configuration file or change an independent module or layout module configuration file complete build process occurs. The client project consists of modules. Each module has its own script, style and markup file, and optionally a json file which represents module configuration object below. And there is also layout modules that enables to layout your modules. Layout modules have same file structure as modules. Your modules matched with corresponding layout modules by checking their file path. With configuration file you can configure different layouting chain. It alsa adds script and style tags automatically based on your configuration. Added script and style tags can be adjusted via configuration file.
 
 In this project modules and layout modules exists in this file structure:
 ```
@@ -72,7 +72,7 @@ Here is type definition for configuration
  * @property {RelativePathOfReference[]} relativePathsOfReferences
  */
 
- 
+
 /**
  * @typedef {Object} ConfigurationModule
  * @property {string[]} substitutingModules
@@ -95,9 +95,11 @@ Here is type definition for configuration
  * @property {string} layoutModule
  * @property {string} markupTemplate
  * @property {string[]} includeStandaloneStyles
+ * @property {string[]} includeStandaloneScripts
  * @property {string[]} includeVendorScripts
  * @property {string[]} includeVendorStyles
  * @property {string[]} excludeStandaloneStyles
+ * @property {string[]} excludeStandaloneScripts
  * @property {string[]} excludeVendorScripts
  * @property {string[]} excludeVendorStyles
  * @property {string[]} includeStaticScriptReferences
@@ -108,11 +110,12 @@ Here is type definition for configuration
 
 /**
  * Represents configuration object for build process.
- * @property {'typescript'|'javascript'} projectType
  * @typedef {Object} Configuration
+ * @property {'typescript'|'javascript'} projectType
  * @property {string} projectDirectory
  * @property {ConfigurationSourceDirectories} sourceDirectories
  * @property {ConfigurationOutputDirectories} outputDirectories
+ * @property {ConfigurationReferenceParentPaths} referenceParentPaths
  * @property {Object.<string,ConfigurationVendor} vendorScripts
  * @property {Object.<string,ConfigurationVendor>} vendorStyles
  * @property {Object.<string,string>} staticScriptReferences

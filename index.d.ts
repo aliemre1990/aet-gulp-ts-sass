@@ -1,3 +1,5 @@
+import StandaloneLibraryDependencyScriptFile from './lib/types/file/ScriptFile/StandaloneLibraryDependencyScriptFile';
+
 type ModuleConfiguration = {
     substitutingModules: string[],
     layoutMoudle: string,
@@ -366,18 +368,18 @@ declare class VendorStyleFile extends StyleFile {
 }
 
 declare class ClientController {
-    constructor(options: { prodMode: boolean, dontCopyVendor: boolean, configurationPath: string });
+    constructor(options: { prodMode: boolean, dontCopyVendor: boolean, configuration: Configuration });
 
     configuration: Configuration;
     moduleScriptFiles: ModuleScriptFile[];
     layoutModuleScriptFiles: LayoutModuleScriptFile[];
     libraryScriptFiles: LibraryScriptFile[];
-    standaloneScriptLibraryScriptFiles: StandaloneLibraryEntryScriptFile[];
+    standaloneLibraryScriptFiles: Array<StandaloneLibraryEntryScriptFile | StandaloneLibraryDependencyScriptFile>;
     allScriptFiles: ScriptFile[];
     moduleStyleFiles: ModuleStyleFile[];
     layoutModuleStyleFiles: LayoutModuleStyleFile[];
     libraryStyleFiles: LibraryStyleFile[];
-    standaloneStyleLibraryStyleFiles: StandaloneLibraryEntryStyleFile[];
+    standaloneLibraryStyleFiles: Array<StandaloneLibraryEntryStyleFile | StandaloneLibraryDependencyStyleFile>;
     allStyleFiles: StyleFile[];
     layoutModuleMarkupFiles: LayoutModuleMarkupFile[];
     moduleMarkupFiles: ModuleMarkupFile[];
@@ -388,8 +390,8 @@ declare class ClientController {
     layoutModuleConfigurationFiles: { [key: string]: LayoutModuleConfiguration };
     staticScriptReferences: { name: string, url: string }[];
     staticStyleReferences: { name: string, url: string }[];
-    modules: { [key: string]: { markupFile: ModuleMarkupFile, hbsCompiled: any } };
-    layoutModules: { [key: string]: { markupFile: LayoutModuleMarkupFile, hbsCompiled: any } };
+    modules: { [key: string]: { markupFile: ModuleMarkupFile } };
+    layoutModules: { [key: string]: { markupFile: LayoutModuleMarkupFile } };
 
     build(): void;
     watch(): void;
