@@ -45,7 +45,8 @@ type Configuration = {
         standaloneScriptLibraries: string,
         libraryScripts: string,
         libraryStyles: string,
-        markupTemplates: string
+        markupTemplates: string,
+        components: string
     },
     outputDirectories: {
         moduleScripts: string,
@@ -55,7 +56,11 @@ type Configuration = {
         layoutModuleStyles: string,
         vendorStyles: string,
         standaloneStyleLibraries: string,
-        markupFiles: string
+        standaloneScriptLibraries: string,
+        markupFiles: string,
+        componentStyles: string,
+        componentScripts: string
+
     },
     vendorScripts: { [key: string]: { sourceDirectory: string, relativePathsOfReferences: { standardPath: string, minPath: string }[] } },
     vendorStyles: { [key: string]: { sourceDirectory: string, relativePathsOfReferences: { standardPath: string, minPath: string }[] } },
@@ -69,12 +74,14 @@ type Configuration = {
     }
     publicDirectory: string,
     defaultMarkupTemplate: string,
-    contentPlaceHolder: string,
-    moduleNameSeperator: string,
+    nameSeperator: string,
     validStandaloneLibraryEntryFileNames: string[],
     moduleFileName: string,
     rootModuleFileName: string,
     validMarkupExtensions: string[]
+    contentExpressionName: string,
+    scriptsExpressionName: string,
+    stylesExpressionName: string
 }
 
 type module = {};
@@ -193,6 +200,16 @@ declare class TemplateMarkupFile extends MarkupFile {
     prodMode: boolean;
 }
 
+declare class ComponentMarkupFile extends MarkupFile {
+    constructor(filePath: string, configuration: Configuration, prodMode: boolean);
+
+    filePath: string;
+    configuration: Configuration;
+    prodMode: boolean;
+
+    getComponentName(): string;
+}
+
 declare class ScriptFile extends File {
     constructor(filePath: string, configuration: Configuration, prodMode: boolean);
 
@@ -236,6 +253,18 @@ declare class ModuleScriptFile extends ScriptFile {
     prodMode: boolean;
 
     parentModuleMarkupFile: ModuleMarkupFile;
+
+    getModuleName(): string;
+    getOutputPath(): string;
+    build(prodMode: boolean): void;
+}
+
+declare class ComponentScriptFile extends ScriptFile {
+    constructor(filePath: string, configuration: Configuration, prodMode: boolean);
+
+    filePath: string;
+    configuration: Configuration;
+    prodMode: boolean;
 
     getModuleName(): string;
     getOutputPath(): string;
@@ -329,6 +358,19 @@ declare class ModuleStyleFile extends StyleFile {
     build(prodMode: boolean): void;
 }
 
+
+declare class ComponentStyleFile extends StyleFile {
+    constructor(filePath: string, configuration: Configuration, prodMode: boolean);
+
+    filePath: string;
+    configuration: Configuration;
+    prodMode: boolean;
+
+    getModuleName(): string;
+    getOutputPath(): string;
+    build(prodMode: boolean): void;
+}
+
 declare class StandaloneLibraryDependencyStyleFile extends StyleFile {
     constructor(filePath: string, configuration: Configuration, prodMode: boolean);
 
@@ -373,17 +415,20 @@ declare class ClientController {
     configuration: Configuration;
     moduleScriptFiles: ModuleScriptFile[];
     layoutModuleScriptFiles: LayoutModuleScriptFile[];
+    componentScriptFiles: ComponentScriptFile[];
     libraryScriptFiles: LibraryScriptFile[];
     standaloneLibraryScriptFiles: Array<StandaloneLibraryEntryScriptFile | StandaloneLibraryDependencyScriptFile>;
     allScriptFiles: ScriptFile[];
     moduleStyleFiles: ModuleStyleFile[];
     layoutModuleStyleFiles: LayoutModuleStyleFile[];
+    componentStyleFiles: ComponentStyleFile[];
     libraryStyleFiles: LibraryStyleFile[];
     standaloneLibraryStyleFiles: Array<StandaloneLibraryEntryStyleFile | StandaloneLibraryDependencyStyleFile>;
     allStyleFiles: StyleFile[];
     layoutModuleMarkupFiles: LayoutModuleMarkupFile[];
     moduleMarkupFiles: ModuleMarkupFile[];
     templateMarkupFiles: TemplateMarkupFile[];
+    componentMarkupFiles: ComponentMarkupFile[];
     vendorScriptDirectories: VendorScriptDirectory[];
     vendorStyleDirectories: VendorStyleDirectory[];
     moduleConfigurationFiles: { [key: string]: ModuleConfiguration };

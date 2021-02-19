@@ -125,7 +125,7 @@ Here is type definition for configuration
  * @property {string} publicDirectory
  * @property {string} defaultMarkupTemplate
  * @property {string} contentPlaceHolder
- * @property {string} moduleNameSeperator
+ * @property {string} nameSeperator
  * @property {string[]} validStandaloneLibraryEntryFileNames
  * @property {string} moduleFileName
  * @property {string} rootModuleFileName
@@ -207,7 +207,7 @@ And here is example configuration object.
     },
     contentPlaceHolder: '/////content/////',
     defaultMarkupTemplate: 'default.html',
-    moduleNameSeperator: '_',
+    nameSeperator: '_',
     validStandaloneLibraryEntryFileNames: ['index', 'main'],
     moduleFileName: 'module',
     rootModuleFileName: 'root',
@@ -279,8 +279,8 @@ Place holder text that will be used in layout markup files. Put theese text wher
 ## defaultMarkupTemplate
 Default empty html file.
 
-## moduleNameSeperator
-Seperator character used in module names. 
+## nameSeperator
+Seperator character used in module and component names. 
 
 ## validStandaloneLibraryEntryFileNames
 If your standalone library resides in folder, than main files must be one of theese.
