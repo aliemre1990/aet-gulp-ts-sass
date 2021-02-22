@@ -83,7 +83,7 @@ type Configuration = {
     scriptExpression: string,
     styleExpression: string,
     componentPostFix: string,
-    textExpressions: Array<{ postFix: string, adapter: Function, isRecursive: boolean }>,
+    expressions: { postFix: string, isRecursive: boolean }[]
 }
 
 
