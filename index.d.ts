@@ -79,12 +79,13 @@ type Configuration = {
     moduleFileName: string,
     rootModuleFileName: string,
     validMarkupExtensions: string[]
-    contentExpressionName: string,
-    scriptsExpressionName: string,
-    stylesExpressionName: string
+    contentExpression: string,
+    scriptExpression: string,
+    styleExpression: string,
+    componentPostFix: string,
+    textExpressions: Array<{ postFix: string, adapter: Function, isRecursive: boolean }>,
 }
 
-type module = {};
 
 declare class Directory {
     constructor(directoryPath: string, configuration: Configuration);
