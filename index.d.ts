@@ -411,7 +411,17 @@ declare class VendorStyleFile extends StyleFile {
 }
 
 declare class ClientController {
-    constructor(options: { prodMode: boolean, dontCopyVendor: boolean, configuration: Configuration });
+    constructor(options: {
+        prodMode: boolean,
+        dontCopyVendor: boolean,
+        configuration: Configuration,
+        typeExpressionAdapterMapping: { [key: string]: Function },
+        moduleDataProviderMapping: { [key: string]: Function },
+        layoutModuleDataProviderMapping: { [key: string]: Function },
+        templateDataProviderMapping: { [key: string]: Function },
+        expressionAdapterMapping: { [key: string]: Function },
+        handlebarsHelpers: { [key: string]: Function }
+    });
 
     configuration: Configuration;
     moduleScriptFiles: ModuleScriptFile[];
