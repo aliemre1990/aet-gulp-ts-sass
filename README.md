@@ -348,3 +348,99 @@ Postfix used in partial expressions. An expression for component named inputs_my
 ## expressions
 This property is used to define postFixes used in expressions. Value is an object that contains postfix value and a boolean value that indicate whether the expression should be traversed recursively.
 
+# Usage
+
+```
+const aet = require('aet-gulp-ts-sass');
+
+opts = {
+    prodMode: boolean,
+    dontCopyVendor: boolean,
+    configuration: Configuration,
+    typeExpressionAdapterMapping: { [key: string]: Function },
+    moduleDataProviderMapping: { [key: string]: Function },
+    layoutModuleDataProviderMapping: { [key: string]: Function },
+    templateDataProviderMapping: { [key: string]: Function },
+    expressionAdapterMapping: { [key: string]: Function },
+    handlebarsHelpers: { [key: string]: Function }
+}
+
+const clientController = new aet.ClientController(opts);
+```
+## opts
+
+### configuration
+The configuration object.
+
+### prodMode
+Boolean value indicating prod mode. In prod mode sourcemaps will not be added.
+
+### dontCopyVendor
+Boolean value indicating whether to copy vendors or not. This property exists because copying vendors is a long process. In development mode after you have your vendors copied once you can set this property value to true via command line options. For example you can have task one that copies vendor like 'start:node main.js' one doesn't copy like 'start:node main.js --dontCopyVendor'. Then you get the value of the option with library like yargs and pass it to constructor.
+
+### typeExpressionAdapterMapping
+This property's value is used to provide data for that expression postfixes defined in configuration. This property's value consists of key value pairs. Where the keys are postfixes used in templates and values are functions. The function accepts two arguments. The expressions that matches the postfix and the req object. Function must return key value pairs. Where the keys are full expressions and values are the expressions' values.
+
+Example:
+In the configuration assume you have this
+```
+expressions: [
+    { postFix: 'AppContent', isRecursive: true }
+]
+```
+
+Your adapter should be like:
+```
+
+async function contentExpressionAdapter(expressions, req) {
+    var result = {};
+    var contents = await db.collection('contents').find( { name: { $in:expressions} } ).toArray();
+    for(var exp of expressions){
+        result[exp] = contents.find(x=>x.name===exp);
+    }
+
+    return result;
+}
+
+const expressionAdapterMapping = {
+    'AppContent':contentExpressionAdapter
+}
+```
+
+### moduleDataProviderMapping&layoutModuleDataPoviderMapping&templateDataProviderMapping
+The value of this property is used to provide data to individual module templates. Value of this property is consists of key value pairs. Where the keys are module/layoutModule/template names and values are functions. Function must return key value pairs. Where the keys are handlebars expression names and values are values to parse in handlebars template. The express's req object will be passed these functions so you can use req in the functions.
+
+Example:
+```
+async function provideError500ViewData(req) {
+    return {
+        errorMessage: req.errorMessage
+    }
+}
+
+async function provideLoginViewData(req) {
+    return {
+        language: req.language.code,
+        isURLLanguagePrefixed: req.isURLLanguagePrefixed
+    }
+}
+
+const moduleDataProviderMapping = {
+    'login': provideLoginViewData,
+    'errors_500': provideError500ViewData
+}
+
+```
+
+### handlebarsHelpers
+Value of this property consists of key value pairs. Names are helpers' names and values are the helper functions.
+
+## Rendering Modules
+Determining from url to which module to render is up to you. I am mapping urls with module names in my project. But you can use more simpler approach. You can use same url structure as module names. Then replace forward slashes with name seperator and obtain module name from it. 
+
+After you configured your project properly getting the rendered markup content is simple as this.
+
+```
+var rendered = await global.clientController.modules[moduleName].markupFile.render(req);
+return res.status(200).type("html").send(rendered);
+```
